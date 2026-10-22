@@ -1,0 +1,88 @@
+:root {
+  --bg: #f6f7f9;
+  --card: #fff;
+  --text: #1d2330;
+  --muted: #5b6475;
+  --border: #dde1e8;
+  --accent: #2457d6;
+  --ok: #1a7f4b;
+  --danger: #c03a2b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #12151b;
+    --card: #1b2029;
+    --text: #e6e9ef;
+    --muted: #9aa3b5;
+    --border: #2c3341;
+    --accent: #7aa2ff;
+    --ok: #4cc38a;
+    --danger: #ff7b6b;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+main { max-width: 640px; margin: 32px auto; padding: 0 16px; }
+h1 { margin-bottom: 4px; }
+h2 { margin-top: 0; font-size: 1.1rem; }
+.muted { color: var(--muted); }
+.small { font-size: 0.85rem; }
+.status { font-size: 0.9rem; }
+.ok { color: var(--ok); font-weight: 600; }
+.error { color: var(--danger); margin: 8px 0 0; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.big { font-size: 2.5rem; font-weight: 700; margin: 0 0 12px; font-variant-numeric: tabular-nums; }
+.tip { min-height: 3em; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; }
+
+button {
+  background: var(--accent);
+  color: #fff;
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+}
+button:disabled { opacity: 0.6; cursor: wait; }
+button.secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+button.link { background: none; color: var(--danger); padding: 4px 8px; }
+
+input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+}
+
+ul { list-style: none; padding: 0; margin: 12px 0 0; }
+li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+}
+li span { flex: 1; overflow-wrap: anywhere; }
+li.done span { text-decoration: line-through; color: var(--muted); }
