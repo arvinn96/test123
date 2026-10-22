@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Test123</title>
+  <style>
+    :root { --bg: #f6f7f9; --card: #fff; --text: #1d2330; --muted: #5b6475; --accent: #2457d6; --ok: #1a7f4b; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #12151b; --card: #1b2029; --text: #e6e9ef; --muted: #9aa3b5; --accent: #7aa2ff; --ok: #4cc38a; }
+    }
+    body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+    main { max-width: 640px; margin: 48px auto; padding: 0 16px; }
+    .card { background: var(--card); border-radius: 12px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+    h1 { margin-top: 0; }
+    p { color: var(--muted); }
+    dl { display: grid; grid-template-columns: max-content 1fr; gap: 8px 16px; }
+    dt { color: var(--muted); }
+    dd { margin: 0; font-family: ui-monospace, monospace; }
+    .ok { color: var(--ok); font-weight: 600; }
+    button { background: var(--accent); color: #fff; border: 0; border-radius: 8px; padding: 10px 16px; cursor: pointer; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="card">
+      <h1>Test123</h1>
+      <p>Simple test web app. If you can see this page, the deployment is working.</p>
+      <dl>
+        <dt>Health</dt><dd id="health">checking…</dd>
+        <dt>Environment</dt><dd id="env">–</dd>
+        <dt>Node</dt><dd id="node">–</dd>
+        <dt>Server time</dt><dd id="time">–</dd>
+      </dl>
+      <button id="refresh">Refresh</button>
+    </div>
+  </main>
+  <script>
+    async function load() {
+      try {
+        const health = await fetch('/health').then(r => r.json());
+        const el = document.getElementById('health');
+        el.textContent = health.status;
+        el.className = health.status === 'ok' ? 'ok' : '';
+        const info = await fetch('/api/info').then(r => r.json());
+        document.getElementById('env').textContent = info.environment;
+        document.getElementById('node').textContent = info.node;
+        document.getElementById('time').textContent = info.serverTime;
+      } catch (e) {
+        document.getElementById('health').textContent = 'unreachable';
+      }
+    }
+    document.getElementById('refresh').addEventListener('click', load);
+    load();
+  </script>
+</body>
+</html>
